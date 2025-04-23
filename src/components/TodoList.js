@@ -7,18 +7,18 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 
 // Components
 import Todo from "./Todo";
+import TodoDeleteDialog from "./TodoDeleteDialog";
+import TodoUpdateDialog from "./TodoUpdateDialog";
 
 // OTHERS
 import { useTodos, useTodosDispatch } from "../contexts/TodosContext";
 import { useToast } from "../contexts/ToastContext";
 import { useState, useEffect, useMemo } from "react";
-import TodoDeleteDialog from "./TodoDeleteDialog";
-import TodoUpdateDialog from "./TodoUpdateDialog";
 
 const TodoList = () => {
   const todos = useTodos();
@@ -43,7 +43,7 @@ const TodoList = () => {
 
   if (displayedTodosType === "completed") {
     todosToBeRendered = completedTodos;
-  } else if (displayedTodosType === "non-completed") {
+  } else if (displayedTodosType === "not-completed") {
     todosToBeRendered = notCompletedTodos;
   } else {
     todosToBeRendered = todos;
@@ -135,7 +135,7 @@ const TodoList = () => {
               onChange={changeDisplayedType}
               aria-label='text alignment'
               color='primary'>
-              <ToggleButton value='non-completed'>غير المنجز</ToggleButton>
+              <ToggleButton value='not-completed'>غير المنجز</ToggleButton>
               <ToggleButton value='completed'>المنجز</ToggleButton>
               <ToggleButton value='all'>الكل</ToggleButton>
             </ToggleButtonGroup>
@@ -149,11 +149,7 @@ const TodoList = () => {
             </div>
 
             <Grid container style={{ marginTop: "20px" }} spacing={2}>
-              <Grid
-                size={8}
-                display='flex'
-                justifyContent='space-around'
-                alignItems='center'>
+              <Grid size={8}>
                 <TextField
                   style={{ width: "100%" }}
                   id='outlined-basic'
@@ -166,11 +162,7 @@ const TodoList = () => {
                 />
               </Grid>
 
-              <Grid
-                size={4}
-                display='flex'
-                justifyContent='space-around'
-                alignItems='center'>
+              <Grid size={4}>
                 <Button
                   style={{ width: "100%", height: "100%" }}
                   variant='contained'
